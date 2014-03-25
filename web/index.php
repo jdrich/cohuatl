@@ -1,5 +1,9 @@
 <?php
 
+if (preg_match('/\.(png|jpg|jpeg|gif|css|js)$/', $_SERVER['REQUEST_URI'])) {
+    return false;
+}
+
 session_start();
 
 spl_autoload_register(
@@ -14,6 +18,7 @@ $session_save = function( $session ) {
 
 try {
     $router = new Cohuatl\Router(
+        $_SERVER['REQUEST_URI'],
         new Cohuatl\Filter($_SERVER, $_GET, $_POST, $_FILES),
         new Cohuatl\Config(file_get_contents('../config.json')),
         new Cohuatl\User($_SESSION, $session_save)
@@ -21,5 +26,5 @@ try {
 
     $router->route();
 } catch (Exception $e) {
-    echo $e->getMessage();
+    echo get_class($e) . ': ' . $e->getMessage();
 }
