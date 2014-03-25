@@ -18,13 +18,12 @@ $session_save = function( $session ) {
 
 try {
     $router = new Cohuatl\Router(
-        $_SERVER['REQUEST_URI'],
-        new Cohuatl\Filter($_SERVER, $_GET, $_POST, $_FILES),
         new Cohuatl\Config(file_get_contents('../config.json')),
+        new Cohuatl\Filter($_SERVER, $_GET, $_POST, $_FILES),
         new Cohuatl\User($_SESSION, $session_save)
     );
 
-    $router->route();
+    $router->route($_SERVER['REQUEST_URI']);
 } catch (Exception $e) {
     echo get_class($e) . ': ' . $e->getMessage();
 }

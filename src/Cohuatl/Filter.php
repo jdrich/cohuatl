@@ -6,7 +6,7 @@ class Filter
 {
     private $supers = array();
 
-    public function __construct( $server, $get, $post, $files ) {
+    public function __construct( array $server, array $get, array $post, array $files ) {
         $supers['server'] = $server;
         $supers['get'] = $get;
         $supers['post'] = $post;
@@ -23,7 +23,7 @@ class Filter
         return isset( $super[$value] );
     }
 
-    public function get( $super, $value, $filter, $options = array() ) {
+    public function get( $super, $value, $filter, array $options = array() ) {
         if( !isset( $this->supers[$super]) ) {
             return false;
         }
