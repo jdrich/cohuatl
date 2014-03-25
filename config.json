@@ -1,0 +1,5 @@
+{
+    "diff_dir": "data/diffs",
+    "annotation_dir": "data/notes",
+    "user_file": "data/users.json"
+}
