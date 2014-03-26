@@ -21,41 +21,84 @@ class Router
 
     public function route( $uri )
     {
-        $method = $this->match( $uri );
+        $route = $this->match( $uri );
 
-        if( $method === null ) {
+        if( $route === null ) {
             throw new \InvalidArgumentException( 'Unable to determine route.' );
         }
 
-        $method( $this->config, $this->filter, $this->user );
+        $this->call( $route['method'], $route['captures'] );
     }
 
     public function addRoute( $route, callable $method )
     {
+        $route_regex = $this->decomposeRoute( $route );
 
+        $this->routes[ $route_regex ] = $method;
+    }
+
+    private function call( $method, $params ) {
+        $method( $params, $this->config, $this->filter, $this->user );
     }
 
     private function decomposeRoute( $route )
     {
-        $chunks = explode( '/', $route );
+        $match = '/^\/$/';
 
-        $match = '/^';
+        if ( $route != '/' ) {
+            $chunks = explode( '/', $route );
 
-        foreach( $chunks as $chunk ) {
-            if( $chunk[0] === ':' ) {
-                $match .= '[^\/]+';
-            } else {
-                $match .= $chunk;
+            $match = '/^';
+
+            foreach( $chunks as $chunk ) {
+                if( $chunk === '' ) {
+                    continue;
+                }
+
+                $match .= '\/';
+
+                if( $chunk[0] === ':' ) {
+                    $capture = substr( $chunk, 1 );
+
+                    $match .= '(?P<' . $capture . '>[^\/]+)';
+                } else {
+                    $match .= $chunk;
+                }
             }
 
-            $match .= '\/';
+            $match .= '$/';
         }
 
-        $match .= '$/';
+        return $match;
     }
 
     private function match( $route )
     {
+        foreach( $this->routes as $pattern => $method ) {
+            if( $this->pregMatchCapture( $pattern, $route, $captures ) ) {
+                return array(
+                    'method' => $method,
+                    'captures' => $captures
+                );
+            }
+        }
+
         return null;
+    }
+
+    private function pregMatchCapture( $pattern, $route, &$captures) {
+        $match = preg_match( $pattern, $route, $captures );
+
+        if( $match === 0 ) {
+            return 0;
+        }
+
+        foreach ( $captures as $key => $capture ) {
+            if( is_int( $key ) ) {
+                unset( $captures[$key] );
+            }
+        }
+
+        return 1;
     }
 }

@@ -19,6 +19,10 @@ try {
         new Cohuatl\User($_SESSION, $session_save)
     );
 
+    foreach( new App\Routes() as $route => $method ) {
+        $router->addRoute( $route, $method );
+    }
+
     $router->route($_SERVER['REQUEST_URI']);
 } catch (Exception $e) {
     echo get_class($e) . ': ' . $e->getMessage();
