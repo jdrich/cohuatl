@@ -4,13 +4,9 @@ if (preg_match('/\.(png|jpg|jpeg|gif|css|js)$/', $_SERVER['REQUEST_URI'])) {
     return false;
 }
 
-session_start();
+require_once '../autoload.php';
 
-spl_autoload_register(
-    function ($class) {
-        include '../src/' . str_replace( '\\', '/', $class ) . '.php';
-    }
-);
+session_start();
 
 $session_save = function( $session ) {
     $_SESSION = $session;
