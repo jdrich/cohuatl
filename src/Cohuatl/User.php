@@ -2,7 +2,7 @@
 
 namespace Cohuatl;
 
-class User extends lib\ArrayAccess
+class User extends Lib\ArrayAccess
 {
     private $session_save = null;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cohuatl\lib;
+namespace Cohuatl\Lib;
 
 class ArrayAccess implements \ArrayAccess
 {

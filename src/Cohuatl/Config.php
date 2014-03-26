@@ -2,7 +2,7 @@
 
 namespace Cohuatl;
 
-class Config extends lib\ArrayAccess
+class Config extends Lib\ArrayAccess
 {
 
     private static $error_msgs = array(

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Cohuatl\lib;
+namespace tests\Cohuatl\Lib;
 
 class ArrayAccessTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +32,7 @@ class ArrayAccessTest extends \PHPUnit_Framework_TestCase
     }
 
     private function getArrayAccess() {
-        $access = new \Cohuatl\lib\ArrayAccess();
+        $access = new \Cohuatl\Lib\ArrayAccess();
 
         $access['foo'] = 'bar';
 
