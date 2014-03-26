@@ -1,4 +1,5 @@
 Cohuatl
 =======
 
-A basic code review tool. Databaseless.
+A simple PHP framework.
+
