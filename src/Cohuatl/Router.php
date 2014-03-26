@@ -21,6 +21,8 @@ class Router
 
     public function route( $uri )
     {
+        $uri = $this->cleanGetParams( $uri );
+
         $route = $this->match( $uri );
 
         if( $route === null ) {
@@ -100,5 +102,15 @@ class Router
         }
 
         return 1;
+    }
+
+    private function cleanGetParams( $uri ) {
+        $pos_inter = strpos( $uri, '?' );
+
+        if( $pos_inter === false ) {
+            return $uri;
+        } else {
+            return substr( $uri, 0, $pos_inter );
+        }
     }
 }

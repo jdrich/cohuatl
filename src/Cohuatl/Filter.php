@@ -6,11 +6,13 @@ class Filter
 {
     private $supers = array();
 
-    public function __construct( array $server, array $get, array $post, array $files ) {
-        $supers['server'] = $server;
+    public function __construct( array $get, array $post, array $files, array $server ) {
+        $supers = &$this->supers;
+
         $supers['get'] = $get;
         $supers['post'] = $post;
         $supers['files'] = $files;
+        $supers['server'] = $server;
     }
 
     public function has( $super, $value ) {
@@ -23,10 +25,13 @@ class Filter
         return isset( $super[$value] );
     }
 
-    public function get( $super, $value, $filter, array $options = array() ) {
+    public function get( $super, $value, $filter = \FILTER_DEFAULT, array $options = array() ) {
+        $super = strtolower( $super );
+
         if( !isset( $this->supers[$super]) ) {
             return false;
         }
+
 
         $super = $this->supers[$super];
 

@@ -20,5 +20,13 @@ class Routes extends \Cohuatl\Routes
         $this->routes['/hello/:first/:last'] = function ( $params ) {
             echo "Hello, " . $params['first'] . ' ' . $params['last'] . "!\n";
         };
+
+        $this->routes['/config/test'] = function ( $params, $config ) {
+            echo 'diff_dir: ' . $config['diff_dir'];
+        };
+
+        $this->routes['/filter/test'] = function ( $params, $config, $filter ) {
+            echo '$_GET[\'bacon\']: ' . $filter->get( 'get', 'bacon' );
+        };
     }
 }

@@ -12,10 +12,24 @@ $session_save = function( $session ) {
     $_SESSION = $session;
 };
 
+$request_uri = $_SERVER['REQUEST_URI'];
+
+$supers = array( 'GET', 'POST', 'FILES', 'SERVER' );
+
+foreach( $supers as $super ) {
+    $var = strtolower( $super );
+    $global = '_' . $super;
+
+    $$var = $GLOBALS[$global];
+
+    unset( $GLOBALS[$global] );
+}
+
 try {
+
     $router = new Cohuatl\Router(
         new Cohuatl\Config(file_get_contents('../config.json')),
-        new Cohuatl\Filter($_SERVER, $_GET, $_POST, $_FILES),
+        new Cohuatl\Filter($get, $post, $files, $server),
         new Cohuatl\User($_SESSION, $session_save)
     );
 
@@ -23,7 +37,7 @@ try {
         $router->addRoute( $route, $method );
     }
 
-    $router->route($_SERVER['REQUEST_URI']);
+    $router->route($request_uri);
 } catch (Exception $e) {
     echo get_class($e) . ': ' . $e->getMessage();
 }
