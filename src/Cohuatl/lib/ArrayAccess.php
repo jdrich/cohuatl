@@ -11,16 +11,16 @@ class ArrayAccess implements \ArrayAccess
     }
 
     public function offsetGet ( $offset ) {
-        return $this->accessed[$offset];
+        return $this->offsetExists($offset) ? $this->accessed[$offset] : null;
     }
 
     public function offsetSet ( $offset , $value ) {
-        $accessed[ $offset ] = $value;
+        $this->accessed[ $offset ] = $value;
     }
 
     public function offsetUnset ( $offset ) {
-        if( isset( $accessed[ $offset ] ) ) {
-            unset( $accessed[ $offset ] );
+        if( isset( $this->accessed[ $offset ] ) ) {
+            unset( $this->accessed[ $offset ] );
         }
     }
 }
