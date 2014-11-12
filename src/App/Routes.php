@@ -19,6 +19,12 @@ class Routes extends \Cohuatl\Routes
             $hello->pastrami($params);
         };
 
+        $this->routes['auth/:action'] = function ( $params, $config, $filter, $user ) {
+            $auth = new Auth\Auth();
+
+            $auth->route( $params, $config, $filter, $user );
+        };
+
         $this->routes['/blog'] = function ( $params ) {
             $blog = new Blog\Blog();
 
