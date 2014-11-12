@@ -26,7 +26,6 @@ foreach( $supers as $super ) {
 }
 
 try {
-
     $router = new Cohuatl\Router(
         new Cohuatl\Config(file_get_contents('../config.json')),
         new Cohuatl\Filter($get, $post, $files, $server),
