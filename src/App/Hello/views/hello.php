@@ -10,6 +10,6 @@
     <h2><?php echo $message; ?></h2>
     <p>
         This message has been viewed <?php echo $times; ?> times.
-    </h2>
+    </p>
   </body>
 </html>

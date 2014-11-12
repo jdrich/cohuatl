@@ -35,29 +35,59 @@ class Store {
         return ( $this->index >= 0 ) ? $this->data : null;
     }
 
+    public function first() {
+        return $this->get(0);
+    }
+
+    public function last() {
+        while($this->hasNext()) {
+            $this->index++;
+        }
+
+        return $this->get();
+    }
+
     public function next() {
         if( $this->hasNext() ) {
-            $next = $this->index + 1;
-
-            $json = file_get_contents( $this->getItemFilename( $next ) );
-
-            if( $json === false ) {
-                throw new \RuntimeException( 'Could not get contents of: ' . $json );
-            }
-
-            $data = json_decode( $json, true );
-
-            if( $data === null ) {
-                throw new \RuntimeException( 'Could not parse JSON from: ' . $json );
-            }
-
-            $this->data = $data;
-            $this->index = $next;
-
-            return $this->data;
+            return $this->get($this->index + 1);
         }
 
         return null;
+    }
+
+    public function prev() {
+        if( $this->index > 0 ) {
+            return $this->get($this->index - 1);
+        }
+
+        return null;
+    }
+
+    public function get($index = null) {
+        if( $index === null ) {
+            $index = $this->index;
+        }
+
+        if($index < 0) {
+            return null;
+        }
+
+        $json = file_get_contents( $this->getItemFilename( $index ) );
+
+        if( $json === false ) {
+            throw new \RuntimeException( 'Could not get contents of: ' . $this->getItemFilename( $index ) );
+        }
+
+        $data = json_decode( $json, true );
+
+        if( $data === null ) {
+            throw new \RuntimeException( 'Could not parse JSON from: ' . $json );
+        }
+
+        $this->data = $data;
+        $this->index = $index;
+
+        return $this->data;
     }
 
     public function save( array $data ) {
