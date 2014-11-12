@@ -14,7 +14,7 @@ class User extends Lib\ArrayAccess
 
     public function __construct( array $session, callable $session_save )
     {
-        $this->accessee = $session;
+        $this->accessed = $session;
         $this->session_save = $session_save;
 
         $this->setup();
@@ -24,13 +24,13 @@ class User extends Lib\ArrayAccess
     {
         $save = $this->session_save;
 
-        $save( $this->accessee );
+        $save( $this->accessed );
     }
 
     private function setup()
     {
-        if( !isset($this->accessee['cohuatl.session']) ) {
-            $this->accessee = array_merge( $this->accessee, self::$default );
+        if( !isset($this->accessed['cohuatl.session']) ) {
+            $this->accessed = array_merge( $this->accessed, self::$default );
         }
     }
 }
