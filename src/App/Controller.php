@@ -27,4 +27,9 @@ abstract class Controller {
     protected function getView($view, $params = []) {
         return \Cohuatl\View::getInstance()->get($view, $params);
     }
+
+    protected function redirect( $named_route ) {
+        header('Location: ' . (new \App\Routes())->map($named_route));
+        exit();
+    }
 }
