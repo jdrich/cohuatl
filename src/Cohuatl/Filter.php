@@ -32,7 +32,6 @@ class Filter
             return false;
         }
 
-
         $super = $this->supers[$super];
 
         if( !isset( $super[$value] ) ) {

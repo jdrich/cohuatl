@@ -116,7 +116,7 @@ class Store {
 
     public function save( array $data ) {
         if( $this->index < 0 ) {
-            throw new \RuntimeException( 'Invalid index for save data.' );
+            $this->create($data);
         }
 
         $json = json_encode( $data );
