@@ -1,3 +1,9 @@
 {
-    "name": "jdrich/cohuatl"
+    "name": "jdrich/cohuatl",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Cohuatl\\": "src/"
+        }
+    }
 }
