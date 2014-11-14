@@ -23,7 +23,7 @@ class View {
         $this->paths[] = $path;
     }
 
-    public function get($template, $params) {
+    public function get($template, $params = []) {
         foreach( $this->paths as $path ) {
             if(file_exists($path . DIRECTORY_SEPARATOR . $template)) {
                 extract($params);
@@ -36,6 +36,6 @@ class View {
             }
         }
 
-        throw new RuntimeException( 'Could not find template: ' . $template );
+        throw new \RuntimeException( 'Could not find template: ' . $template );
     }
 }

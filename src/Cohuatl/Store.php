@@ -26,9 +26,7 @@ class Store {
     public function hasNext() {
         $next = $this->index + 1;
 
-        return file_exists(
-            $this->getItemFilename( $next )
-        );
+        return file_exists( $this->getItemFilename( $next ) );
     }
 
     public function current() {
@@ -64,6 +62,10 @@ class Store {
     }
 
     public function get($index = null) {
+        if(!ctype_digit((string)$index)) {
+            throw new \RuntimeException( 'Invalid index: ' . $index );
+        }
+
         if( $index === null ) {
             $index = $this->index;
         }
@@ -88,6 +90,28 @@ class Store {
         $this->index = $index;
 
         return $this->data;
+    }
+
+    public function getDefault() {
+        $default = $this->getItemFilename( 'default' );
+
+        if(file_exists($default)) {
+            $json = file_get_contents( $default );
+
+            if( $json === false ) {
+                throw new \RuntimeException( 'Could not access defaults for ' . $this->store );
+            }
+
+            $data = json_decode( $json, true );
+
+            if( $data === null ) {
+                throw new \RuntimeException( 'Could not parse defaults for ' . $this->store );
+            }
+
+            return $data;
+        } else {
+            return [];
+        }
     }
 
     public function save( array $data ) {

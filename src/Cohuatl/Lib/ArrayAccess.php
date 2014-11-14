@@ -2,7 +2,7 @@
 
 namespace Cohuatl\Lib;
 
-class ArrayAccess implements \ArrayAccess
+class ArrayAccess implements \ArrayAccess, \IteratorAggregate
 {
     protected $accessed = array();
 
@@ -22,5 +22,9 @@ class ArrayAccess implements \ArrayAccess
         if( isset( $this->accessed[ $offset ] ) ) {
             unset( $this->accessed[ $offset ] );
         }
+    }
+
+    final public function getIterator() {
+        return new \ArrayIterator($this->accessed);
     }
 }
