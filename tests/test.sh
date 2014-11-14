@@ -1,1 +1,1 @@
-~/phpunit.phar --bootstrap ../autoload.php Cohuatl/
+~/phpunit.phar --bootstrap ../vendor/autoload.php Cohuatl/
