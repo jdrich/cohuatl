@@ -5,42 +5,16 @@ namespace App;
 class Routes extends \Cohuatl\Routes
 {
     public function __construct() {
-        // User defined routes go here.
-        $this->routes['/'] = function () {
-            $hello = new Hello\Hello();
-
-            $hello->hello();
+        $this->routes['/'] = function ( $params, $config, $filter, $user ) {
+            if(!(new \Cohuatl\Store('BlogConfig'))->hasNext()) {
+                $this->routes['/setup']($params, $config, $filter, $user);
+            } else {
+                (new Blog\Blog($params, $config, $filter, $user))->index();
+            }
         };
 
-        // User defined routes go here.
-        $this->routes['/pastrami/:rye'] = function ( $params ) {
-            $hello = new Hello\Hello();
-
-            $hello->pastrami($params);
-        };
-
-        $this->routes['auth/:action'] = function ( $params, $config, $filter, $user ) {
-            $auth = new Auth\Auth();
-
-            $auth->route( $params, $config, $filter, $user );
-        };
-
-        $this->routes['/blog'] = function ( $params ) {
-            $blog = new Blog\Blog();
-
-            $blog->index();
-        };
-
-        $this->routes['/blog/create'] = function ( $params ) {
-            $blog = new Blog\Blog();
-
-            $blog->create();
-        };
-
-        $this->routes['/blog/save'] = function ( $params ) {
-            $blog = new Blog\Blog();
-
-            $blog->save();
+        $this->routes['/setup'] = function ($params, $config, $filter, $user) {
+            (new Setup\Setup($params, $config, $filter, $user))->index();
         };
     }
 }
