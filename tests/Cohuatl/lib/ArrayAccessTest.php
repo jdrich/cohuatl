@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Cohuatl\Lib;
+namespace Cohuatl\Tests\Cohuatl\Lib;
 
 class ArrayAccessTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Cohuatl;
+namespace Cohuatl\Tests\Cohuatl;
 
 class ConfigTest extends \PHPUnit_Framework_TestCase
 {
