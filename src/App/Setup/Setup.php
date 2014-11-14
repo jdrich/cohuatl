@@ -29,7 +29,51 @@ class Setup extends \App\Controller {
             return;
         }
 
-        echo $this->wrapLayout($this->getView('views/setup.php', ['config' => $config]));
+        $created = false;
+
+        if($config['default']) {
+            $this->createInitialUser($config);
+
+            $created = true;
+        }
+
+        foreach($config as $key => $value) {
+            $new_value = $this->filter->get('post', 'config/' . $key);
+
+            if($value != $new_value) {
+                $config[$key] = $new_value;
+            }
+        }
+
+        $config->save();
+
+        if( $created ) {
+            $this->redirect('@login');
+        } else {
+            echo $this->wrapLayout($this->getView('views/setup.php', ['config' => $config]));
+        }
+    }
+
+    private function createInitialUser($config) {
+        $username = $this->filter->get('post', 'username');
+        $password = $this->filter->get('post', 'password');
+        $confirm = $this->filter->get('post', 'confirm');
+
+        if($confirm !== $password) {
+            throw new \RuntimeException('Provided passwords do not match.');
+        }
+
+        $user = (new \Cohuatl\Store('User'))->getDefault();
+
+        $user['username'] = $username;
+        $user['hash'] = password_hash(
+            $password,
+            \PASSWORD_BCRYPT,
+            [ 'cost' => $config['user_password_strength'] ]
+        );
+        $user['is_admin'] = true;
+
+        (new \Cohuatl\Store('User'))->create($user);
     }
 
     private function checkAuth() {
