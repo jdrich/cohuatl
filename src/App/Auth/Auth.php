@@ -21,13 +21,25 @@ class Auth {
             return;
         }
 
-        if( $filter->get('post', 'username') == 'foo' &&
-           $filter->get('post', 'password') == 'bar'
-        ) {
-            $user['cohuatl.logged_in'] = true;
+        $username = $filter->get('post', 'username');
+        $password = $filter->get('post', 'password');
 
-            header('Location: /');
-            exit();
+        $store = new \Cohuatl\Store('User');
+
+        $invalid = false;
+
+        while($store->hasNext() && !$invalid) {
+            $check_user = $store->next();
+
+            if($check_user['username'] == $username) {
+                if(password_verify($password, $check_user['hash'])) {
+                    $user['cohuatl.logged_in'] = true;
+                    $user['cohuatl.is_admin'] = $check_user['is_admin'];
+
+                    header('Location: /');
+                    exit();
+                }
+            }
         }
 
         echo 'Invalid login.';
