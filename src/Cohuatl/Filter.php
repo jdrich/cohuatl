@@ -25,7 +25,23 @@ class Filter
         return isset( $super[$value] );
     }
 
-    public function get( $super, $value, $filter = \FILTER_DEFAULT, array $options = array() ) {
+    public function get($value, $filter, array $options = array()) {
+        return $this->supers('get', $value, $filter, $options);
+    }
+
+    public function post($value, $filter, array $options = array()) {
+        return $this->supers('post', $value, $filter, $options);
+    }
+
+    public function files($value, $filter = \FILTER_UNSAFE_RAW, array $options = array()) {
+        return $this->supers('files', $value, $filter, $options);
+    }
+
+    public function server($value, $filter, array $options = array()) {
+        return $this->supers('server', $value, $filter, $options);
+    }
+
+    public function supers( $super, $value, $filter = \FILTER_SANITIZE_STRING, array $options = array() ) {
         $super = strtolower( $super );
 
         if( !isset( $this->supers[$super]) ) {

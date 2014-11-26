@@ -4,22 +4,13 @@ namespace Cohuatl;
 
 class Router
 {
-    private $filter;
-
-    private $config;
-
-    private $user;
-
     private $routes = array();
 
-    public function __construct( $config, $filter, $user )
+    public function __construct()
     {
-        $this->config = $config;
-        $this->filter = $filter;
-        $this->user = $user;
     }
 
-    public function route( $uri )
+    public function route( $uri, Container $container )
     {
         $uri = $this->cleanGetParams( $uri );
 
@@ -29,7 +20,7 @@ class Router
             throw new \InvalidArgumentException( 'Unable to determine route.' );
         }
 
-        $this->call( $route['method'], $route['captures'] );
+        $this->call( $route['method'], $route['captures'], $container );
     }
 
     public function addRoute( $route, callable $method )
@@ -39,8 +30,8 @@ class Router
         $this->routes[ $route_regex ] = $method;
     }
 
-    private function call( $method, $params ) {
-        $method( $params, $this->config, $this->filter, $this->user );
+    private function call( $method, $params, Container $container ) {
+        $method( $params, $container );
     }
 
     private function decomposeRoute( $route )

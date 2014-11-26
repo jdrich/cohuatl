@@ -10,6 +10,15 @@
             "homepage": "http://jonathanri.ch"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jdrich/bismarck"
+        }
+    ],
+    "require": {
+        "jdrich/bismarck": "dev-master"
+    },
     "autoload": {
         "psr-0": {
             "Cohuatl": "src/",
