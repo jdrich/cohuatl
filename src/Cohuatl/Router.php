@@ -59,6 +59,10 @@ class Router
                 }
             }
 
+            if($chunk === '') {
+                $match .= '\/';
+            }
+
             $match .= '$/';
         }
 
