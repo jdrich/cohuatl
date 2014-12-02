@@ -27,6 +27,24 @@ class User extends Lib\ArrayAccess
         $save( $this->accessed );
     }
 
+    public function login($is_admin = false) {
+        $this['cohuatl.logged_in'] = true;
+        $this['cohuatl.is_admin'] = $is_admin;
+    }
+
+    public function logout() {
+        $this['cohuatl.logged_in'] = false;
+        $this['cohuatl.is_admin'] = false;
+    }
+
+    public function isLoggedIn() {
+        return $this['cohuatl.logged_in'];
+    }
+
+    public function isAdmin() {
+        return $this['cohuatl.is_admin'];
+    }
+
     private function setup()
     {
         if( !isset($this->accessed['cohuatl.session']) ) {
