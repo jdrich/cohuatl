@@ -25,11 +25,11 @@ class Filter
         return isset( $super[$value] );
     }
 
-    public function get($value, $filter, array $options = array()) {
+    public function get($value, $filter = \FILTER_SANITIZE_STRING, array $options = array()) {
         return $this->supers('get', $value, $filter, $options);
     }
 
-    public function post($value, $filter, array $options = array()) {
+    public function post($value, $filter = \FILTER_SANITIZE_STRING, array $options = array()) {
         return $this->supers('post', $value, $filter, $options);
     }
 
@@ -37,7 +37,7 @@ class Filter
         return $this->supers('files', $value, $filter, $options);
     }
 
-    public function server($value, $filter, array $options = array()) {
+    public function server($value, $filter = \FILTER_SANITIZE_STRING, array $options = array()) {
         return $this->supers('server', $value, $filter, $options);
     }
 
