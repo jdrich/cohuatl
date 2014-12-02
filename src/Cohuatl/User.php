@@ -45,6 +45,11 @@ class User extends Lib\ArrayAccess
         return $this['cohuatl.is_admin'];
     }
 
+    public function clear() {
+        $this->accessed = array();
+        $this->setup();
+    }
+
     private function setup()
     {
         if( !isset($this->accessed['cohuatl.session']) ) {
