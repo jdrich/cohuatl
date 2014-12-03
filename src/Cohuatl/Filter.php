@@ -56,7 +56,11 @@ class Filter
 
         $filter = $this->filterFilter( $filter );
 
-        return filter_var($super[$value], $filter, $options);
+        if(is_array($super[$value])) {
+            return filter_var_array($super[$value], $filter, $options);
+        } else {
+            return filter_var($super[$value], $filter, $options);
+        }
     }
 
     private function filterFilter( $filter )
