@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c5e42c556a37986d43c63006a6768e7",
+    "hash": "cc8e1b9451ea5a68ba5427586e9e301d",
     "packages": [
         {
             "name": "jdrich/bismarck",
@@ -46,6 +46,78 @@
                 "issues": "https://github.com/jdrich/bismarck/issues"
             },
             "time": "2014-11-17 19:51:53"
+        },
+        {
+            "name": "jdrich/crier",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdrich/crier.git",
+                "reference": "aed21152f8d389b685cd8647773a07a0ca4bc479"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdrich/crier/zipball/aed21152f8d389b685cd8647773a07a0ca4bc479",
+                "reference": "aed21152f8d389b685cd8647773a07a0ca4bc479",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Crier\\": "src/",
+                    "Crier\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Rich",
+                    "email": "jdrich@gmail.com",
+                    "homepage": "http://jonathanri.ch"
+                }
+            ],
+            "description": "An Event Emitter",
+            "homepage": "https://github.com/jdrich/crier",
+            "time": "2014-12-08 20:56:55"
+        },
+        {
+            "name": "jdrich/masticate",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdrich/masticate.git",
+                "reference": "7a45d67ca7c25ceffa63f52cb3df89968552f2ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdrich/masticate/zipball/7a45d67ca7c25ceffa63f52cb3df89968552f2ca",
+                "reference": "7a45d67ca7c25ceffa63f52cb3df89968552f2ca",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Masticate\\": "src/",
+                    "Masticate\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonathan Rich",
+                    "email": "jdrich@gmail.com",
+                    "homepage": "http://jonathanri.ch"
+                }
+            ],
+            "description": "Consume and contain request data",
+            "homepage": "https://github.com/jdrich/masticate",
+            "time": "2014-12-04 21:41:57"
         },
         {
             "name": "pimple/pimple",
