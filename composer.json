@@ -19,7 +19,7 @@
     "require": {
         "jdrich/bismarck": "1.0.*",
         "jdrich/crier": "1.1.*",
-        "jdrich/masticate": "1.0.0"
+        "jdrich/masticate": "1.0.*"
     },
     "autoload": {
         "psr-4": {
