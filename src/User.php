@@ -66,9 +66,9 @@ class User implements \ArrayAccess
 
     private function setup()
     {
-        if( !$this->session['_cohuatl.session'] ) {
+        if( !isset($this->session['_cohuatl.session']) || !$this->session['_cohuatl.session'] ) {
             foreach($this->default as $key => $value) {
-                $this[$key] = $value;
+                $this->session[$key] = $value;
             }
         }
     }
