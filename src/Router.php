@@ -23,7 +23,7 @@ class Router
         return $route;
     }
 
-    public function addRoute( $route, $event )
+    public function connect( $route, $event )
     {
         $route_regex = $this->decomposeRoute( $route );
 
@@ -56,7 +56,7 @@ class Router
             }
 
             if($chunk === '') {
-                $match .= '\/';
+                $match .= '\/?';
             }
 
             $match .= '$/';

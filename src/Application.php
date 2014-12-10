@@ -11,28 +11,27 @@ class Application extends \Bismarck\Container {
 
         $this->init();
 
-        $router->addRoute('/:module/', '_default');
-        $router->addRoute('/:module/:command', '_default');
+        $router->connect('/:module/', '_default');
+        $router->connect('/:module/:command', '_default');
 
-        $dispatcher->app($this);
         $dispatcher->define('_default');
 
         $dispatcher->listener(
             '_default',
-            function(Application $app, $parameters) {
+            function($event, $parameters) {
                 $event = $parameters['module'];
 
-                if(isset($parameters['command'])) {
-                    $event .= '.' . $parameters['command'];
+                if(isset($parameters['action'])) {
+                    $event .= '.' . $parameters['action'];
                 }
 
-                $app['_dispatcher']->dispatch($event, $parameters);
+                $this['_dispatcher']->dispatch($event, $parameters);
             }
         );
     }
 
     protected function init() {
-        // Define routes and events here.
+        (new Auth($this))->attach();
     }
 
     public function accept($request_uri) {

@@ -8,17 +8,13 @@ require_once '../vendor/autoload.php';
 
 session_start();
 
-$session_save = function( $session ) {
-    $_SESSION = $session;
-};
-
 $request_uri = $_SERVER['REQUEST_URI'];
 
 try {
     $app = new Cohuatl\Application(
         new Cohuatl\Router(),
         new Cohuatl\Dispatcher(),
-        new Cohuatl\User(new Cohuatl\Session($session_save)),
+        new Cohuatl\User($_SESSION),
         Masticate\Filter::masticate()
     );
 

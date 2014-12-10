@@ -2,58 +2,74 @@
 
 namespace Cohuatl;
 
-class User
+class User implements \ArrayAccess
 {
-    private $session_save = null;
+    private $session;
 
-    private static $default = array(
-        'cohuatl.session' => true,
-        'cohuatl.is_admin' => false,
-        'cohuatl.logged_in' => false
+    protected $user;
+
+    private $default = array(
+        '_cohuatl.session' => true,
+        '_cohuatl.is_admin' => false,
+        '_cohuatl.logged_in' => false,
+        '_cohuatl.user' => []
     );
 
-    public function __construct( $session )
+    public function __construct( &$session )
     {
-        $this->accessed = $session;
-        $this->session_save = $session;
+        $this->session = &$session;
 
         $this->setup();
-    }
 
-    public function __destruct()
-    {
-        /*$save = $this->session_save;
-
-        $save( $this->accessed );*/
+        $this->user = &$this->session['_cohuatl.user'];
     }
 
     public function login($is_admin = false) {
-        $this['cohuatl.logged_in'] = true;
-        $this['cohuatl.is_admin'] = $is_admin;
+        $this->session['_cohuatl.logged_in'] = true;
+        $this->session['_cohuatl.is_admin'] = $is_admin;
     }
 
     public function logout() {
-        $this['cohuatl.logged_in'] = false;
-        $this['cohuatl.is_admin'] = false;
+        $this->session['_cohuatl.logged_in'] = false;
+        $this->session['_cohuatl.is_admin'] = false;
     }
 
     public function isLoggedIn() {
-        return $this['cohuatl.logged_in'];
+        return $this->session['_cohuatl.logged_in'];
     }
 
     public function isAdmin() {
-        return $this['cohuatl.is_admin'];
+        return $this->session['_cohuatl.is_admin'];
     }
 
-    public function clear() {
-        $this->accessed = array();
+    public function offsetExists($offset) {
+        return isset($this->user[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return $this->user[$offset];
+    }
+
+    public function offsetSet($offset, $value) {
+        return $this->user[$offset] = $value;
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->user[$offset]);
+    }
+
+    private function clear() {
+        $this->session['_cohuatl.session'] = false;
+
         $this->setup();
     }
 
     private function setup()
     {
-        /*if( !isset($this->accessed['cohuatl.session']) ) {
-            $this->accessed = array_merge( $this->accessed, self::$default );
-        }*/
+        if( !$this->session['_cohuatl.session'] ) {
+            foreach($this->default as $key => $value) {
+                $this[$key] = $value;
+            }
+        }
     }
 }
