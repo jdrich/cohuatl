@@ -4,6 +4,8 @@ namespace Cohuatl;
 
 class Application extends \Bismarck\Container {
     public function __construct(Router $router, Dispatcher $dispatcher, User $user, \Masticate\Filter $filter ) {
+        parent::construct();
+
         $this['_router'] = $router;
         $this['_dispatcher'] = $dispatcher;
         $this['_user'] = $user;
