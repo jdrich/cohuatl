@@ -9,9 +9,14 @@ abstract class Module {
         $this->app = $app;
     }
 
-    public function attach() {
+    final public function attach() {
         $this->connect($this->app['_router']);
         $this->listen($this->app['_dispatcher']);
+        $this->init();
+    }
+
+    protected function init() {
+
     }
 
     protected function contextualize($method) {
