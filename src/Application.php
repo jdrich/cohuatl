@@ -29,8 +29,8 @@ class Application extends \Bismarck\Container {
             function($event, $parameters) {
                 $event = $parameters['module'];
 
-                if(isset($parameters['action'])) {
-                    $event .= '.' . $parameters['action'];
+                if(isset($parameters['command'])) {
+                    $event .= '.' . $parameters['command'];
                 }
 
                 $this['_dispatcher']->dispatch($event, $parameters);
