@@ -23,18 +23,4 @@ abstract class Module {
 
     protected function listen(Dispatcher $dispatcher) {
     }
-
-    protected function templateDir() {
-        return '';
-    }
-
-    protected function get($template, $params = []) {
-        extract($params);
-
-        ob_start();
-
-        include $this->templateDir() . \DIRECTORY_SEPARATOR . $template;
-
-        return ob_get_clean();
-    }
 }

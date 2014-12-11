@@ -9,6 +9,12 @@ class Application extends \Bismarck\Container {
         $this['_user'] = $user;
         $this['_filter'] = $filter;
 
+        $this['_template'] = $this->factory(
+            function () {
+                return new Template();
+            }
+        );
+
         $this->init();
 
         $router->connect('/:module/', '_default');
