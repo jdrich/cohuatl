@@ -30,8 +30,7 @@ class User implements \ArrayAccess
     }
 
     public function logout() {
-        $this->session['_cohuatl.logged_in'] = false;
-        $this->session['_cohuatl.is_admin'] = false;
+        $this->clear();
     }
 
     public function isLoggedIn() {
