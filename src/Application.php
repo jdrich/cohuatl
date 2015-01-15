@@ -40,12 +40,16 @@ class Application extends \Bismarck\Container {
 
     protected function init() {
         (new Auth($this))->attach();
+        (new Except(this))->attach();
     }
 
     public function accept($request_uri) {
         $route = $this['_router']->match($request_uri);
 
-        $this['_dispatcher']->dispatch($route['event'], $route['parameters']);
+        $this->call($route['event'], $route['parameters']);
     }
 
+    public function call($event, $parameters) {
+        $this['_dispatcher']->dispatch($event, $parameters);
+    }
 }

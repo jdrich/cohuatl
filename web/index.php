@@ -24,5 +24,17 @@ try {
 
     $app->accept($request_uri);
 } catch (Exception $e) {
-    echo get_class($e) . ': ' . $e->getMessage();
+    try {
+        $app->call(
+            'exception',
+            [
+                'class' => get_class($e),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'message' => $e->getMessage()
+            ]
+        );
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 }
