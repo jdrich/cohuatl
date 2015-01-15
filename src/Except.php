@@ -15,7 +15,7 @@ class Except extends Module {
 
         $echo .= '<h2>' . $parameters['class'] . '</h2>';
         $echo .= '<h4>' . $parameters['file'] . ': line ' . $parameters['line'] . '</h4>';
-        $echo .= '<p>' . $e->getMessage . '</p></body></html>';
+        $echo .= '<p>' .  $parameters['message'] . '</p></body></html>';
 
         echo $echo;
     }
